@@ -79,7 +79,7 @@ RUN set -eux; \
     } | tee php-fpm.d/zz-docker.conf
 
 # cleanup
-RUN yum -y autoremove shadow-utils make gcc
+RUN yum -y autoremove make gcc
 
 # Override stop signal to stop process gracefully
 # https://github.com/php/php-src/blob/17baa87faddc2550def3ae7314236826bc1b1398/sapi/fpm/php-fpm.8.in#L163
