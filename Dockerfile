@@ -11,7 +11,7 @@ RUN set -eux; \
 
 RUN set -eux; \
     yum -y install php-cli php-pdo php-fpm php-json php-mysqlnd php-xml; \
-    yum -y install php-mbstring php-opcache php-curl; \
+    yum -y install php-mbstring php-opcache php-curl php-gd; \
     yum -y install php-pear php-devel
 
 RUN set -eux; \
