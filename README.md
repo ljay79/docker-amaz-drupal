@@ -4,7 +4,11 @@
 
 [![Docker build](http://dockeri.co/image/ljay/amaz-drupal)](https://hub.docker.com/r/ljay/amaz-drupal/)
 
-This repo creates a Docker image for PHP-FPM running on Amazon Linux 2 used for Drupal.
+This repo creates a Docker image for PHP-FPM running on Amazon Linux 2 used for Drupal..
+Customized for ECS load-balances environment with nginx, redis backend cache, ..
+Composer v2.0.8 installed.
+
+Use with caution!
 
 ## PHP versions
 
