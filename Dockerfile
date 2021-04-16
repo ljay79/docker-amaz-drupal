@@ -7,34 +7,22 @@ MAINTAINER ljay
 RUN set -eux; \
     yum -y update && yum -y install shadow-utils procps; \
     amazon-linux-extras install -y php7.4; \
-    yum clean metadata
-
-RUN set -eux; \
+    yum clean metadata; \
     yum -y install php-cli php-pdo php-fpm php-json php-mysqlnd php-xml; \
     yum -y install php-mbstring php-opcache php-curl php-gd php-oauth php-bcmath; \
     #yum -y install php-memcached; \
-	yum -y install php-redis; \
-	yum -y install php-pear php-devel
-
-RUN set -eux; \
+    yum -y install php-redis; \
+    yum -y install php-pear php-devel; \
     yum -y install make gcc; \
-    yum -y install ImageMagick ImageMagick-devel ImageMagick-perl
-
-RUN set -eux; \
+    yum -y install ImageMagick ImageMagick-devel ImageMagick-perl; \
     pecl channel-update pecl.php.net; \
     printf "\n" | pecl install imagick; \
-	pecl install uploadprogress
-
-# Set UTC timezone
-#RUN ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo UTC > /etc/timezone
-RUN set -eux; \
+    pecl install uploadprogress; \
+    # Set UTC timezone
+    #ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo UTC > /etc/timezone
     printf '[PHP]\ndate.timezone = "%s"\n', UTC > /etc/php.d/tzone.ini; \
     "date"
 
-#RUN set -eux; \
-#    curl -sS https://getcomposer.org/installer | php ; \
-#    mv composer.phar /usr/local/bin/composer ; \
-#    ln -s /usr/local/bin/composer /usr/bin/composer
 COPY --from=composer:2.0.8 /usr/bin/composer /usr/local/bin/
 
 RUN set -eux; \
@@ -44,10 +32,7 @@ RUN set -eux; \
     groupadd -g 500 www-data; \
     useradd -d /var/www/html -s /sbin/nologin -u 500 -g 500 www-data; \
     chown -R www-data:www-data /var/www/html; \
-    chmod 0775 /var/www/html
-
-RUN set -eux; \
-    \
+    chmod 0775 /var/www/html; \
     pecl update-channels; \
     # smoke test
     php --version
