@@ -1,4 +1,4 @@
-# Docker image for PHP-FPM 7.4x on a Amazon Linux2 OS for Drupal 9
+# Docker image for PHP-FPM 8.1.x on a Amazon Linux2 OS for Drupal 10.x
 
 [![](https://images.microbadger.com/badges/image/ljay/amaz-drupal.svg)](http://microbadger.com/images/ljay/amaz-drupal)
 
@@ -6,7 +6,7 @@
 
 This repo creates a Docker image for PHP-FPM running on Amazon Linux 2 used for Drupal..
 Customized for ECS load-balances environment with nginx, redis backend cache, ..
-Composer v2.0.8 installed.
+Composer v2.7 installed.
 
 Use with caution!
 
@@ -14,10 +14,16 @@ Use with caution!
 
 Version | Git branch | Tag name
 --------| ---------- |---------
-7.4.11  | php-fpm    | php-fpm
+8.1.23  | php-fpm    | php-fpm
+8.1.23  | php-fpm    | php-fpm_8.1
 
 
 # Build and Test
+
+build container
+```sh
+docker build -t drupal-php .
+```
 
 run and output php modules
 ```sh

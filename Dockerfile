@@ -6,24 +6,24 @@ MAINTAINER ljay
 # update amazon software repo
 RUN set -eux; \
     yum -y update && yum -y install shadow-utils procps; \
-    amazon-linux-extras install -y php7.4; \
-    yum clean metadata; \
-    yum -y install php-cli php-pdo php-fpm php-json php-mysqlnd php-xml; \
-    yum -y install php-mbstring php-opcache php-curl php-gd php-oauth php-bcmath; \
-    #yum -y install php-memcached; \
-    yum -y install php-redis; \
-    yum -y install php-pear php-devel; \
+    amazon-linux-extras install -y php8.1; \
+	yum clean metadata; \
+	yum -y install php-cli php-pdo php-fpm php-json php-mysqlnd php-xml; \
+	yum -y install php-mbstring php-opcache php-curl php-gd php-oauth php-bcmath; \
+	yum -y install php-pear php-devel; \
     yum -y install make gcc; \
     yum -y install ImageMagick ImageMagick-devel ImageMagick-perl; \
-    pecl channel-update pecl.php.net; \
+    pecl channel-update pecl.php.net && pecl update-channels; \
+	printf "\n" | pecl install redis; \
     printf "\n" | pecl install imagick; \
+	printf "\n" | pecl install apcu; \
     pecl install uploadprogress; \
     # Set UTC timezone
     #ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo UTC > /etc/timezone
     printf '[PHP]\ndate.timezone = "%s"\n', UTC > /etc/php.d/tzone.ini; \
     "date"
 
-COPY --from=composer:2.0.8 /usr/bin/composer /usr/local/bin/
+COPY --from=composer:2.7 /usr/bin/composer /usr/local/bin/
 
 RUN set -eux; \
     [ ! -d /var/www/html ]; \
@@ -33,7 +33,6 @@ RUN set -eux; \
     useradd -d /var/www/html -s /sbin/nologin -u 500 -g 500 www-data; \
     chown -R www-data:www-data /var/www/html; \
     chmod 0775 /var/www/html; \
-    pecl update-channels; \
     # smoke test
     php --version
 
