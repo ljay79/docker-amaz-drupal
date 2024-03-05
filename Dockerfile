@@ -11,7 +11,7 @@ RUN set -eux; \
 	yum -y install php-cli php-pdo php-fpm php-json php-mysqlnd php-xml; \
 	yum -y install php-mbstring php-opcache php-curl php-gd php-oauth php-bcmath; \
 	yum -y install php-pear php-devel; \
-    yum -y install make gcc; \
+    yum -y install make gcc tar unzip; \
     yum -y install ImageMagick ImageMagick-devel ImageMagick-perl; \
     pecl channel-update pecl.php.net && pecl update-channels; \
 	printf "\n" | pecl install redis; \
