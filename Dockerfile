@@ -5,23 +5,23 @@ MAINTAINER ljay
 
 # update amazon software repo
 RUN set -eux; \
-    yum -y update && yum -y install shadow-utils procps; \
-    amazon-linux-extras install -y php8.1; \
+	yum -y update && yum -y install shadow-utils procps; \
+	amazon-linux-extras install -y php8.1; \
 	yum clean metadata; \
 	yum -y install php-cli php-pdo php-fpm php-json php-mysqlnd php-xml; \
 	yum -y install php-mbstring php-opcache php-curl php-gd php-oauth php-bcmath; \
 	yum -y install php-pear php-devel; \
-    yum -y install make gcc tar unzip; \
-    yum -y install ImageMagick ImageMagick-devel ImageMagick-perl; \
-    pecl channel-update pecl.php.net && pecl update-channels; \
+	yum -y install make gcc tar unzip; \
+	yum -y install ImageMagick ImageMagick-devel ImageMagick-perl; \
+	pecl channel-update pecl.php.net && pecl update-channels; \
 	printf "\n" | pecl install redis; \
-    printf "\n" | pecl install imagick; \
+	printf "\n" | pecl install imagick; \
 	printf "\n" | pecl install apcu; \
-    pecl install uploadprogress; \
-    # Set UTC timezone
-    #ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo UTC > /etc/timezone
-    printf '[PHP]\ndate.timezone = "%s"\n', UTC > /etc/php.d/tzone.ini; \
-    "date"
+	pecl install uploadprogress; \
+	# Set UTC timezone
+	#ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo UTC > /etc/timezone
+	printf '[PHP]\ndate.timezone = "%s"\n', UTC > /etc/php.d/tzone.ini; \
+	"date"
 
 COPY --from=composer:2.7 /usr/bin/composer /usr/local/bin/
 
